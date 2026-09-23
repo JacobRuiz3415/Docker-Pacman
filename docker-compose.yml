@@ -1,0 +1,9 @@
+services:
+  game:
+    build: .
+    container_name: melonjs_platformer
+    ports:
+      - "8080:80"
+    volumes:
+      - ./app:/usr/share/nginx/html
+    restart: unless-stopped

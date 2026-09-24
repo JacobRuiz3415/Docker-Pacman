@@ -1,10 +1,13 @@
 var game = {
   resources: [
-    { name: "tileset", type: "image", src: "data/img/tileset.png" },
-    { name: "level1",  type: "tmx",   src: "data/map/level1.json" },
-    { name: "player",  type: "image", src: "data/img/player.png" },
-    { name: "coin",    type: "image", src: "data/img/coin.png" },
-    { name: "enemy",   type: "image", src: "data/img/enemy.png" }
+    { name: "tileset",      type: "image", src: "data/img/tileset.png" },
+    { name: "levelSprites", type: "image", src: "data/img/levelSprites.png" },
+    { name: "collision",   type: "image", src: "data/img/collision.png" },
+    { name: "boots",       type: "image", src: "data/img/boots.png" },
+    { name: "level1",      type: "tmx",   src: "data/map/level1.tmx" },
+    { name: "player",      type: "image", src: "data/img/player.png" },
+    { name: "coin",        type: "image", src: "data/img/coin.png" },
+    { name: "enemy",       type: "image", src: "data/img/enemy.png" }
   ],
 
   onload: function () {
@@ -26,10 +29,11 @@ var game = {
     // Register screens
     me.state.set(me.state.PLAY, new game.PlayScreen());
 
-    // Register entities in the melonJS entity pool (older API)
-    me.entityPool.add("mainPlayer", game.PlayerEntity);
-    me.entityPool.add("CoinEntity", game.CoinEntity);
-    me.entityPool.add("EnemyEntity", game.EnemyEntity);
+    // Register entities using the names created by the TMX object layer
+    me.entityPool.add("player", game.PlayerEntity);
+    me.entityPool.add("coin", game.CoinEntity);
+    me.entityPool.add("enemyentity", game.EnemyEntity);
+    me.entityPool.add("boots", me.InvisibleEntity);
 
     // Keybindings
     me.input.bindKey(me.input.KEY.LEFT,  "left");

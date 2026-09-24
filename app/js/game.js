@@ -9,7 +9,7 @@ var game = {
 
   onload: function () {
     // Initialize 640x480 viewport scaled automatically
-    if (!me.video.init(640, 480, { wrapper: "screen", scale: "auto" })) {
+    if (!me.video.init("screen", 640, 480, true, 1)) {
       alert("HTML5 Canvas is not supported by your browser.");
       return;
     }
@@ -17,18 +17,19 @@ var game = {
     // Initialize audio if available
     me.audio.init("mp3,ogg");
 
-    // Preload resources and pass callback
-    me.loader.preload(game.resources, this.loaded.bind(this));
+    // Preload resources and trigger the callback defined in the older melonJS API
+    me.loader.onload = this.loaded.bind(this);
+    me.loader.preload(game.resources);
   },
 
   loaded: function () {
     // Register screens
     me.state.set(me.state.PLAY, new game.PlayScreen());
 
-    // Register entities in the melonJS entity pool
-    me.pool.register("mainPlayer", game.PlayerEntity);
-    me.pool.register("CoinEntity", game.CoinEntity);
-    me.pool.register("EnemyEntity", game.EnemyEntity);
+    // Register entities in the melonJS entity pool (older API)
+    me.entityPool.add("mainPlayer", game.PlayerEntity);
+    me.entityPool.add("CoinEntity", game.CoinEntity);
+    me.entityPool.add("EnemyEntity", game.EnemyEntity);
 
     // Keybindings
     me.input.bindKey(me.input.KEY.LEFT,  "left");
@@ -40,3 +41,7 @@ var game = {
     me.state.change(me.state.PLAY);
   }
 };
+
+onReady(function () {
+  game.onload();
+});

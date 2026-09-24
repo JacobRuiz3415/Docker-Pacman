@@ -1,7 +1,7 @@
 // --- PLAYER ENTITY ---
-game.PlayerEntity = me.Entity.extend({
+game.PlayerEntity = me.ObjectEntity.extend({
   init: function (x, y, settings) {
-    this._super(me.Entity, "init", [x, y, {
+    this._super(me.ObjectEntity, "init", [x, y, {
       image: "player",
       width: 64,
       height: 64
@@ -51,7 +51,7 @@ game.PlayerEntity = me.Entity.extend({
       this.renderable.setCurrentAnimation("stand");
     }
 
-    return (this._super(me.Entity, "update", [dt]) || this.body.vel.x !== 0 || this.body.vel.y !== 0);
+    return (this._super(me.ObjectEntity, "update", [dt]) || this.body.vel.x !== 0 || this.body.vel.y !== 0);
   },
 
   onCollision: function (response, other) {
@@ -72,9 +72,9 @@ game.CoinEntity = me.CollectableEntity.extend({
 });
 
 // --- PATROLLING ENEMY ENTITY ---
-game.EnemyEntity = me.Entity.extend({
+game.EnemyEntity = me.ObjectEntity.extend({
   init: function (x, y, settings) {
-    this._super(me.Entity, "init", [x, y, { image: "enemy", width: 48, height: 48 }]);
+    this._super(me.ObjectEntity, "init", [x, y, { image: "enemy", width: 48, height: 48 }]);
     this.startX = x;
     this.endX = x + (settings.width || 120);
     this.pos.x = x;

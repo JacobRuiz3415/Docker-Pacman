@@ -1,4 +1,4 @@
-game.PlayScreen = me.Stage.extend({
+game.PlayScreen = me.ScreenObject.extend({
   onResetEvent: function () {
     // Load map exported from Tiled
     me.levelDirector.loadLevel("level1");
